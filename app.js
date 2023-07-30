@@ -10,7 +10,7 @@ const version = process.env.npm_package_version
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Welcome to fAIble bud!' + "v" + version)
+  res.send('Welcome to fAIble bud!' + "v." + version)
 })
 
 // For github sync integration and self updating on push
