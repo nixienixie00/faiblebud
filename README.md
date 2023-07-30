@@ -104,3 +104,9 @@ curl -X POST -H "Content-Type: application/json" \
   "audioDataURI": "data:audio/mpeg;base64,//uQZAAAAAAAAAAAAAAAAAAAAA"
 }
 ```
+
+# Glitch.com
+
+For hosting on glitch.com, you can have the git sync automatically.
+
+https://support.glitch.com/t/tutorial-how-to-auto-update-your-project-with-github/8124

@@ -10,7 +10,7 @@ const version = "1.0.0"
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Welcome to fAIble bud!' + "v." + version)
+  res.send('Welcome to fAIble bud!' + " v." + version)
 })
 
 // For github sync integration and self updating on push
@@ -24,7 +24,7 @@ app.post('/git', (req, res) => {
     });
     cmd.run('refresh');  // Refresh project
   
-    console.log("> [GIT] Updated with origin/master");
+    console.log("> [GIT] Updated with origin/main");
   }
 
   return res.sendStatus(200); // Send back OK status
