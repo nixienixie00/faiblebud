@@ -5,7 +5,7 @@ const cmd = require("node-cmd")
 const app = express()
 const port = process.env.PORT || 3000
 
-const version = process.env.npm_package_version
+const version = "1.0.0"
 
 app.use(express.json())
 
