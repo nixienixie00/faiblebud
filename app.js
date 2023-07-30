@@ -5,10 +5,12 @@ const cmd = require("node-cmd")
 const app = express()
 const port = process.env.PORT || 3000
 
+const version = process.env.npm_package_version
+
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Welcome to fAIble bud!')
+  res.send('Welcome to fAIble bud!' + "v" + version)
 })
 
 // For github sync integration and self updating on push
