@@ -6,6 +6,10 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
+app.get('/', (req, res) => {
+  res.send('Welcome to fAIble Bud!')
+})
+
 app.post('/synthesize', async (req, res) => {
   const text = req.body.text
 
