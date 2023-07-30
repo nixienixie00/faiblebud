@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const axios = require('axios')
+const cmd = require("node-cmd")
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -9,6 +10,30 @@ app.use(express.json())
 app.get('/', (req, res) => {
   res.send('Welcome to fAIble Bud!')
 })
+
+// For github sync integration and self updating on push
+app.post('/git', (req, res) => {
+  // If event is "push"
+  if (req.headers['x-github-event'] == "push") {
+    cmd.run('chmod 777 git.sh'); /* :/ Fix no perms after updating */
+    cmd.get('./git.sh', (err, data) => {  // Run our script
+      if (data) console.log(data);
+      if (err) console.log(err);
+    });
+    cmd.run('refresh');  // Refresh project
+  
+    console.log("> [GIT] Updated with origin/master");
+  }
+
+  // Update the log files
+  let commits = req.body.head_commit.message.split("\n").length == 1 ?
+              req.body.head_commit.message :
+              req.body.head_commit.message.split("\n").map((el, i) => i !== 0 ? "                       " + el : el).join("\n");
+  console.log(`> [GIT] Updated with origin/master\n` + 
+            `        Latest commit: ${commits}`);
+
+  return res.sendStatus(200); // Send back OK status
+});
 
 app.post('/synthesize', async (req, res) => {
   const text = req.body.text
