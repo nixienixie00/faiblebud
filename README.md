@@ -1,8 +1,27 @@
-# VF-ElevenLabs API Integration
+# fAIble bud
 
-This Node.js application uses the Eleven Labs API to synthesize text to speech. It takes in text and voice settings as input and returns the synthesized audio in a data URI format you can use in an Audio step in your Assistant.
+fAIble bud is an Alexa Skill that allows you to create unique custom fable on demand for the little ones. You specify what moral 
+or lesson be learnt and the skill will generate a unique fable for you, complete with a high quality realistic AI generated voice 
+narration powered by the ElevenLabs technology.
 
-Loom video: https://www.loom.com/share/a9a0abf118594ba590386024c905596f
+# Architecture
+
+The Alexa Skill is currently created by VoiceFlow no-code platform. The backend is a NodeJS server whose source code is in this repo
+whose primary function is to make calls to the ElevenLabs API to generate the audio narration.
+
+# Testing
+
+Currently the Alexa Skill is in development mode and is not yet published. To test the skill, you need to be added as a beta tester.
+Please contact the author to be added as a beta tester.
+
+The full experience can only be tested on an Alexa device. However, you can test the backend server using simple instructions below.
+
+# Alexa Backend Server
+
+The Alexa front end skill (created in Voiceflow) utilizes this backend server to handle the following:
+
+- Synthetizing of text to speech using the Eleven Labs API and returning back an AUDIO data URI
+
 
 ## Prerequisites
 
@@ -13,13 +32,13 @@ Loom video: https://www.loom.com/share/a9a0abf118594ba590386024c905596f
 1. Clone the repository:
 
    ```
-   git clone https://github.com/voiceflow-gallagan/VF-ElevenLabs.git
+   git clone https://github.com/goldzulu/faiblebud.git
    ```
 
 2. Change to the project directory:
 
    ```
-   cd VF-ElevenLabs
+   cd faiblebud
    ```
 
 3. Install the required dependencies:
