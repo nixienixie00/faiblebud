@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Welcome to fAIble Bud!')
+  res.send('Welcome to fAIble bud!')
 })
 
 // For github sync integration and self updating on push
