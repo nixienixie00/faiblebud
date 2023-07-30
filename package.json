@@ -1,5 +1,5 @@
 {
-  "name": "vf-elevenlabs",
+  "name": "faiblebud",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/voiceflow-gallagan/VF-ElevenLabs.git"
+  },
+  "engines": { 
+    "node": "18.x" 
   },
   "author": "NiKo | Voiceflow",
   "license": "ISC",
