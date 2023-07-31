@@ -16,28 +16,32 @@ AWS.config.update({
 
 const version = "1.0.0"
 const S3 = new AWS.S3();
-const tempy = require('tempy');
+const tmp = require('tmp');
 
 // Function to transcode audio to meet Alexa's requirements
 async function transcodeAudio(inputBuffer) {
   return new Promise((resolve, reject) => {
     const outputBuffer = [];
-
-    // Write buffer to a temporary file
-    const tempFile = tempy.file({extension: 'mp3'});
-    fs.writeFileSync(tempFile, inputBuffer);
-
+    
+    // Create a temporary file
+    const tempFile = tmp.fileSync({ postfix: '.mp3' });
+    
+    // Write buffer to the temporary file
+    fs.writeFileSync(tempFile.name, inputBuffer);
+    
     ffmpeg()
-      .input(tempFile)  // Pass the file path to ffmpeg
+      .input(tempFile.name)  // Pass the file path to ffmpeg
       .audioCodec('libmp3lame')
       .audioBitrate(48)
       .audioFrequency(16000)
       .outputFormat('mp3')
-      .on('error', reject)
-      .on('data', chunk => outputBuffer.push(chunk))
+      .on('error', (err) => {
+        tempFile.removeCallback();  // Delete the temporary file
+        reject(err);
+      })
+      .on('data', (chunk) => outputBuffer.push(chunk))
       .on('end', () => {
-        // Delete the temporary file
-        fs.unlinkSync(tempFile);
+        tempFile.removeCallback();  // Delete the temporary file
         resolve(Buffer.concat(outputBuffer));
       })
       .run();
