@@ -110,7 +110,7 @@ app.post('/synthesizeurl', async (req, res) => {
     };
 
     const data = await S3.upload(params).promise();
-    res.send({ audioUrl: data.Location });
+    res.send({ audioDataURL: data.Location });
   } catch (error) {
     console.error(error);
     res.status(500).send('Error occurred while processing the request.');
