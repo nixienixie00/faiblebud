@@ -5,6 +5,7 @@ const cmd = require("node-cmd")
 const app = express()
 const port = process.env.PORT || 3000
 
+const ffmpeg = require('fluent-ffmpeg');
 const AWS = require('aws-sdk');
 
 AWS.config.update({
