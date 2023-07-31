@@ -94,6 +94,11 @@ app.post('/synthesizeurl', async (req, res) => {
     const audioBuffer = Buffer.from(response.data, 'binary');
     const transcodedAudioBuffer = await transcodeAudio(audioBuffer);
 
+    // Check if the transcoded audio buffer is empty
+    if (transcodedAudioBuffer.length === 0) {
+      throw new Error('Transcoding failed: the transcoded audio buffer is empty.');
+    }
+
     // Generate a random file name.
     const fileName = `${Date.now()}.mp3`;
 
