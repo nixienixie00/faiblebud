@@ -14,7 +14,9 @@ AWS.config.update({
 });
 
 const version = "1.0.0"
+const S3 = new AWS.S3();
 
+// Function to transcode audio to meet Alexa's requirements
 function transcodeAudio(inputBuffer) {
   return new Promise((resolve, reject) => {
     const outputBuffer = [];
@@ -34,6 +36,70 @@ function transcodeAudio(inputBuffer) {
 }
 
 app.use(express.json())
+
+app.post('/synthesizeurl', async (req, res) => {
+  const text = req.body.text
+
+  if (!text) {
+    res.status(400).send({ error: 'Text is required.' })
+    return
+  }
+
+  const voice =
+    req.body.voice == 0
+      ? '21m00Tcm4TlvDq8ikWAM'
+      : req.body.voice || '21m00Tcm4TlvDq8ikWAM'
+
+  const voice_settings =
+    req.body.voice_settings == 0
+      ? {
+          stability: 0,
+          similarity_boost: 0,
+        }
+      : req.body.voice_settings || {
+          stability: 0,
+          similarity_boost: 0,
+        }
+
+  try {
+    const response = await axios.post(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voice}`,
+      {
+        text: text,
+        voice_settings: voice_settings,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          accept: 'audio/mpeg',
+          'xi-api-key': `${process.env.ELEVENLABS_API_KEY}`,
+        },
+        responseType: 'arraybuffer',
+      }
+    )
+
+    const audioBuffer = Buffer.from(response.data, 'binary');
+    const transcodedAudioBuffer = await transcodeAudio(audioBuffer);
+
+    // Generate a random file name.
+    const fileName = `${Date.now()}.mp3`;
+
+    const params = {
+      Bucket: process.env.AWS_S3_BUCKET_NAME,
+      Key: fileName,
+      Body: transcodedAudioBuffer,
+      ACL: 'public-read',  // make file publicly accessible
+      ContentType: 'audio/mpeg'
+    };
+
+    const data = await S3.upload(params).promise();
+    res.send({ audioUrl: data.Location });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error occurred while processing the request.');
+  }
+});
+
 
 app.get('/', (req, res) => {
   res.send('Welcome to fAIble bud!' + " v." + version)
