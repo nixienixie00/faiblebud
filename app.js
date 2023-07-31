@@ -50,7 +50,9 @@ function transcodeAudio(inputBuffer) {
 app.use(express.json())
 
 app.post('/synthesizeurl', async (req, res) => {
-  const text = req.body.text
+  //text coming in is base64 encoded so need to decode
+  const text = Buffer.from(req.body.text, 'base64').toString('utf-8')
+  //const text = req.body.text
 
   if (!text) {
     res.status(400).send({ error: 'Text is required.' })
