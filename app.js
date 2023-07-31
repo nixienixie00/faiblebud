@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000
 
 const ffmpeg = require('fluent-ffmpeg');
 const AWS = require('aws-sdk');
+const fs = require('fs');
 
 AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
