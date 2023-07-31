@@ -77,7 +77,7 @@ app.post('/synthesizeurl', async (req, res) => {
 
   try {
     const response = await axios.post(
-      `https://api.elevenlabs.io/v1/text-to-speech/${voice}`,
+      `https://api.elevenlabs.io/v1/text-to-speech/${voice}?optimize_streaming_latency=3`,
       {
         text: text,
         voice_settings: voice_settings,
