@@ -23,18 +23,17 @@ const tmp = require('tmp');
 async function transcodeAudio(inputBuffer) {
   return new Promise((resolve, reject) => {
     const outputBuffer = [];
-    
-    // Create a temporary file
+
+    // Write buffer to a temporary file
     const tempFile = tmp.fileSync({ postfix: '.mp3' });
-    
-    // Write buffer to the temporary file
     fs.writeFileSync(tempFile.name, inputBuffer);
-    
+
     ffmpeg()
       .input(tempFile.name)  // Pass the file path to ffmpeg
       .audioCodec('libmp3lame')
       .audioBitrate(48)
       .audioFrequency(16000)
+      .output('pipe:1')  // Output to stdout
       .outputFormat('mp3')
       .on('error', (err) => {
         tempFile.removeCallback();  // Delete the temporary file
