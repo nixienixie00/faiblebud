@@ -12,7 +12,7 @@ realistic AI generated voice narration powered by the ElevenLabs technology
 
 # Benefits
 - Kids tend to learn better in a form of a story
-- Eleven Labs Cloned voice technology (as showcased in 3 out of the 6 voices) can help the little ones connect better
+- Eleven Labs Cloned voice technology (as showcased in 3 out of the 7 voices) can help the little ones connect better
 to the reader
 - Alexa speakers is everywhere, there are over 100 million Alexa enabled devices. All mobilephones can also use Alexa via
 Alexa app. Alexa Auto allows you to use Alexa in your car. Alexa is also available on many other devices such as TVs, etc.
@@ -32,7 +32,7 @@ The full experience can only be tested on an Alexa device. However, you can test
 
 # Features
 
-Up to the 6 different voices to listen to so the young ones don't get bored
+Up to the 7 different voices to listen to so the young ones don't get bored
 
 # Architecture
 
