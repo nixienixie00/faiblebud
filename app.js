@@ -5,7 +5,33 @@ const cmd = require("node-cmd")
 const app = express()
 const port = process.env.PORT || 3000
 
+const AWS = require('aws-sdk');
+
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION
+});
+
 const version = "1.0.0"
+
+function transcodeAudio(inputBuffer) {
+  return new Promise((resolve, reject) => {
+    const outputBuffer = [];
+  
+    ffmpeg()
+      .input(inputBuffer)
+      .inputFormat('mp3')
+      .audioCodec('libmp3lame')
+      .audioBitrate(48)
+      .audioFrequency(16000)
+      .outputFormat('mp3')
+      .on('error', reject)
+      .on('data', chunk => outputBuffer.push(chunk))
+      .on('end', () => resolve(Buffer.concat(outputBuffer)))
+      .run();
+  });
+}
 
 app.use(express.json())
 

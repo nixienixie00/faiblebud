@@ -11,8 +11,8 @@
     "type": "git",
     "url": "git+https://github.com/goldzulu/faiblebud.git"
   },
-  "engines": { 
-    "node": "16.x" 
+  "engines": {
+    "node": "16.x"
   },
   "author": "goldzulu | dadota",
   "license": "ISC",
@@ -21,9 +21,11 @@
   },
   "homepage": "https://github.com/goldzulu/faiblebud#readme",
   "dependencies": {
+    "aws-sdk": "^2.1425.0",
     "axios": "^1.3.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "fluent-ffmpeg": "^2.1.2",
     "node-cmd": "^5.0.0"
   }
 }
