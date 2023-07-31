@@ -16,22 +16,30 @@ AWS.config.update({
 
 const version = "1.0.0"
 const S3 = new AWS.S3();
+const tempy = require('tempy');
 
 // Function to transcode audio to meet Alexa's requirements
-function transcodeAudio(inputBuffer) {
+async function transcodeAudio(inputBuffer) {
   return new Promise((resolve, reject) => {
     const outputBuffer = [];
-  
+
+    // Write buffer to a temporary file
+    const tempFile = tempy.file({extension: 'mp3'});
+    fs.writeFileSync(tempFile, inputBuffer);
+
     ffmpeg()
-      .input(inputBuffer)
-      .inputFormat('mp3')
+      .input(tempFile)  // Pass the file path to ffmpeg
       .audioCodec('libmp3lame')
       .audioBitrate(48)
       .audioFrequency(16000)
       .outputFormat('mp3')
       .on('error', reject)
       .on('data', chunk => outputBuffer.push(chunk))
-      .on('end', () => resolve(Buffer.concat(outputBuffer)))
+      .on('end', () => {
+        // Delete the temporary file
+        fs.unlinkSync(tempFile);
+        resolve(Buffer.concat(outputBuffer));
+      })
       .run();
   });
 }
