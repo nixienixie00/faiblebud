@@ -2,12 +2,20 @@
 
 fAIble bud is an Alexa Skill that allows you to create unique custom fable on demand for the little ones. You specify what moral 
 or lesson be learnt and the skill will generate a unique fable for you, complete with a high quality realistic AI generated voice 
-narration powered by the ElevenLabs technology.
+narration powered by the ElevenLabs technology
 
-# Architecture
+# Problem we are solving
 
-The Alexa Skill is currently created by VoiceFlow no-code platform. The backend is a NodeJS server whose source code is in this repo
-whose primary function is to make calls to the ElevenLabs API to generate the audio narration.
+- Parents are busy and don't have time to read to their kids
+- Kids are spending too much time on screens
+- Kids are not learning the right values and morals
+- Kids tend to relate betterw with
+
+# Market Potential
+
+You can use this at home or even on the move in the car, etc!
+
+There are over 100 million Alexa enabled devices out there and many times more users per device.
 
 # Testing
 
@@ -15,6 +23,15 @@ Currently the Alexa Skill is in development mode and is not yet published. To te
 Please contact the author to be added as a beta tester.
 
 The full experience can only be tested on an Alexa device. However, you can test the backend server using simple instructions below.
+
+# Features
+
+Up to the 6 different voices to listen to so the young ones don't get bored
+
+# Architecture
+
+The Alexa Skill is currently created by VoiceFlow no-code platform. The backend is a NodeJS server whose source code is in this repo
+whose primary function is to make calls to the ElevenLabs API to generate the audio narration.
 
 # Alexa Backend Server
 
